@@ -4,6 +4,11 @@
 
 - name: add repository 'mackerel'
   copy: src=centos-mackerel.repo dest=/etc/yum.repos.d/mackerel.repo owner=root group=root mode=0644
+  when: ansible_distribution_major_version != 7
+
+- name: add repository 'mackerel'
+  copy: src=centos-7-mackerel.repo dest=/etc/yum.repos.d/mackerel.repo owner=root group=root mode=0644
+  when: ansible_distribution_major_version == 7
 
 - name: install mackerel-agent
   yum: name=mackerel-agent state=latest
